@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="64dp"
+        android:paddingVertical="40dp"
+        android:maxWidth="900dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="8dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ── URL ── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_url"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/edit_url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textUri"
+            android:hint="@string/hint_url"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_hint"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_selector"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btn_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_test_url"
+            android:background="@drawable/btn_selector"
+            android:textColor="@color/text_primary"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="36dp"
+            android:focusable="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ── Screensaver duration ── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_sleep_duration"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/edit_sleep_duration"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/hint_sleep_duration"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_hint"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_selector"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc_sleep_duration"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="36dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ── System screen timeout ── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_screen_timeout"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/edit_screen_timeout"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="@string/hint_screen_timeout"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_hint"
+            android:textSize="18sp"
+            android:background="@drawable/edit_text_selector"
+            android:padding="16dp"
+            android:singleLine="true"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc_screen_timeout"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Permission button — hidden when permission is already granted -->
+        <Button
+            android:id="@+id/btn_request_permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_grant_permission"
+            android:background="@drawable/btn_selector"
+            android:textColor="@color/text_primary"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:visibility="gone"
+            android:layout_marginBottom="8dp"
+            android:focusable="true" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc_permission"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:layout_marginBottom="36dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ── Set as system screensaver (requires WRITE_SECURE_SETTINGS via ADB) ── -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_system_screensaver"
+            android:textSize="14sp"
+            android:textColor="@color/text_secondary"
+            android:textAllCaps="true"
+            android:letterSpacing="0.08"
+            android:layout_marginBottom="8dp" />
+
+        <Button
+            android:id="@+id/btn_set_system_screensaver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_set_system_screensaver"
+            android:background="@drawable/btn_selector"
+            android:textColor="@color/text_primary"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:layout_marginBottom="8dp"
+            android:focusable="true" />
+
+        <TextView
+            android:id="@+id/text_adb_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/desc_adb_hint"
+            android:textSize="12sp"
+            android:textColor="@color/text_hint"
+            android:fontFamily="monospace"
+            android:layout_marginBottom="36dp"
+            android:visibility="gone" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"
+            android:layout_marginBottom="32dp" />
+
+        <!-- ── Status message ── -->
+        <TextView
+            android:id="@+id/text_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp" />
+
+        <!-- ── Action buttons ── -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_save"
+                android:background="@drawable/btn_selector"
+                android:textColor="@color/text_primary"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="14dp"
+                android:layout_marginEnd="16dp"
+                android:focusable="true" />
+
+            <Button
+                android:id="@+id/btn_launch_screensaver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_launch_screensaver"
+                android:background="@drawable/btn_selector"
+                android:textColor="@color/text_primary"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="14dp"
+                android:layout_marginEnd="16dp"
+                android:focusable="true" />
+
+            <Button
+                android:id="@+id/btn_system_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_system_settings"
+                android:background="@drawable/btn_selector"
+                android:textColor="@color/text_primary"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="14dp"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

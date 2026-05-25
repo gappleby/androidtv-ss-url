@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- Granted via ADB: adb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS -->
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
+
+    <!-- Android TV / Fire TV feature declarations -->
+    <uses-feature
+        android:name="android.software.leanback"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="false" />
+    <uses-feature
+        android:name="amazon.hardware.fire_tv"
+        android:required="false" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:banner="@drawable/tv_banner"
+        android:label="@string/app_name"
+        android:usesCleartextTraffic="true"
+        android:theme="@style/Theme.AndroidTvSS">
+
+        <!--
+            Primary launcher on Fire TV / Android TV home screen.
+            Opens straight into the full-screen WebView screensaver.
+            Press Back or Menu to reach settings.
+        -->
+        <activity
+            android:name=".ScreensaverActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.AndroidTvSS.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Settings activity — reachable from within ScreensaverActivity -->
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="true"
+            android:label="@string/settings_title">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Full-screen test preview activity -->
+        <activity
+            android:name=".TestUrlActivity"
+            android:exported="false"
+            android:label="@string/test_url"
+            android:theme="@style/Theme.AndroidTvSS.Fullscreen" />
+
+        <!-- Boot receiver — starts IdleMonitorService after device reboot -->
+        <receiver
+            android:name=".BootReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            Background monitor service:
+            - Intercepts DREAMING_STARTED to overlay ScreensaverActivity on top of
+              Amazon's screensaver if screensaver_components gets reset
+            - Re-applies screensaver_components every hour to keep our DreamService
+              registered as the system screensaver
+        -->
+        <service
+            android:name=".IdleMonitorService"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+
+        <!--
+            DreamService screensaver — used on standard Android TV devices
+            where the system screensaver picker respects DreamService.
+            Ignored on Fire OS (Amazon hardcodes their own screensaver).
+        -->
+        <service
+            android:name=".ScreensaverDreamService"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.dreams.DreamService" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/dream_info" />
+        </service>
+
+    </application>
+
+</manifest>

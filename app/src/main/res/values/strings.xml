@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TV Screensaver</string>
+    <string name="settings_title">TV Screensaver Settings</string>
+    <string name="test_url">Test URL Preview</string>
+    <string name="btn_launch_screensaver">Launch Screensaver</string>
+
+    <!-- Labels -->
+    <string name="label_url">Screensaver URL</string>
+    <string name="hint_url">https://example.com</string>
+    <string name="label_sleep_duration">Screensaver duration (minutes)</string>
+    <string name="hint_sleep_duration">e.g. 30</string>
+    <string name="desc_sleep_duration">How long the screensaver plays before the device sleeps. Set to 0 to run until woken.</string>
+    <string name="label_screen_timeout">Screen idle timeout (minutes)</string>
+    <string name="hint_screen_timeout">e.g. 5</string>
+    <string name="desc_screen_timeout">Time the device sits idle before the screensaver activates. Written to the system SCREEN_OFF_TIMEOUT setting (requires permission below).</string>
+
+    <!-- Buttons -->
+    <string name="btn_test_url">Test URL</string>
+    <string name="btn_save">Save Settings</string>
+    <string name="btn_system_settings">Open Screensaver System Settings</string>
+    <string name="btn_grant_permission">Grant \'Modify system settings\' permission</string>
+    <string name="desc_permission">Required to apply the screen timeout value automatically. Tap to open Android settings.</string>
+    <string name="hint_back">Press BACK to exit preview</string>
+
+    <!-- Status / error messages -->
+    <string name="error_url_empty">Please enter a URL first.</string>
+    <string name="error_url_invalid">URL must start with https:// or http://</string>
+    <string name="error_sleep_invalid">Screensaver duration must be at least 1 minute.</string>
+    <string name="error_timeout_invalid">Screen timeout must be at least 1 minute.</string>
+    <string name="status_saved_no_permission">Settings saved. Grant permission to also apply the screen timeout automatically.</string>
+    <string name="status_saved_with_timeout">Settings saved. Screen timeout set to %d minute(s).</string>
+    <string name="status_saved_timeout_failed">Settings saved, but could not write screen timeout — check permission.</string>
+    <string name="error_settings_unavailable">Could not open system settings on this device.</string>
+    <string name="error_permission_screen_unavailable">Could not open permission settings — try granting \'Modify system settings\' manually in Android Settings → Apps.</string>
+
+    <!-- System screensaver component -->
+    <string name="label_system_screensaver">System screensaver (Android TV / Fire TV)</string>
+    <string name="btn_set_system_screensaver">Set as System Screensaver</string>
+    <string name="desc_adb_hint">Requires a one-time ADB command (run from your PC):\nadb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS\nThen press the button above.</string>
+    <string name="status_system_screensaver_set">Done — this app is now the system screensaver.</string>
+    <string name="error_secure_settings_permission">WRITE_SECURE_SETTINGS not granted. Run the ADB command shown below first.</string>
+    <string name="error_secure_settings_failed">Failed to apply: %s</string>
+
+    <!-- IdleMonitorService notification -->
+    <string name="notification_channel_name">Screensaver Monitor</string>
+    <string name="notification_monitoring">Monitoring for screensaver activation</string>
+</resources>

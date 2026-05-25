@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Android TV home screen banner (320x180dp equivalent).
+    Replace with a proper PNG banner for store submission.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#0F0F1A" />
+        </shape>
+    </item>
+    <item android:gravity="center">
+        <inset android:insetLeft="24dp" android:insetRight="24dp">
+            <shape android:shape="rectangle">
+                <solid android:color="#00000000" />
+            </shape>
+        </inset>
+    </item>
+</layer-list>

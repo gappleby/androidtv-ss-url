@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Registered with the DreamService meta-data.
+    Tells the system screensaver chooser which activity opens our settings.
+-->
+<dream xmlns:android="http://schemas.android.com/apk/res/android"
+    android:settingsActivity="com.gappleby.androidtvss/.SettingsActivity" />
