@@ -191,7 +191,8 @@ base64 -w 0 release.jks
 ```
 
 **Step 3 — add four secrets** in your GitHub repo under  
-**Settings → Secrets and variables → Actions → New repository secret**:
+[github.com/gappleby/androidtv-ss-url/settings/secrets/actions](https://github.com/gappleby/androidtv-ss-url/settings/secrets/actions)  
+**New repository secret**:
 
 | Secret name | Value |
 |---|---|
@@ -207,9 +208,14 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-The Actions workflow will build, sign, and publish the APK to GitHub Releases automatically.  
-Download the `.apk` from the release page and sideload it with:
+The Actions workflow will build, sign, and publish the APK to GitHub Releases automatically.
 
+**Download the APK:**
+- Releases page: https://github.com/gappleby/androidtv-ss-url/releases
+- Direct link pattern: `https://github.com/gappleby/androidtv-ss-url/releases/download/v1.0.0/tv-screensaver-1.0.0.apk`
+- Debug builds (every push): https://github.com/gappleby/androidtv-ss-url/actions → click the latest run → **Artifacts**
+
+Sideload with:
 ```bash
 adb install -r tv-screensaver-1.0.0.apk
 ```
@@ -221,8 +227,8 @@ adb install -r tv-screensaver-1.0.0.apk
 ```bash
 # Prerequisites: JDK 11+, Android SDK
 
-git clone https://github.com/your-username/androidtv-ss.git
-cd androidtv-ss
+git clone https://github.com/gappleby/androidtv-ss-url.git
+cd androidtv-ss-url
 
 # Build debug APK
 ./gradlew assembleDebug
