@@ -6,7 +6,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!-- Granted via ADB: adb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS -->
+    <!-- Required on Android 14+ for IdleMonitorService (foregroundServiceType="dataSync") -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+    <!-- Granted via ADB: adb shell pm grant com.gappleby.uatv android.permission.WRITE_SECURE_SETTINGS -->
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS" />
 
     <!-- Android TV / Fire TV feature declarations -->
@@ -26,25 +28,34 @@
         android:banner="@drawable/tv_banner"
         android:label="@string/app_name"
         android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.AndroidTvSS">
+        android:theme="@style/Theme.UATV">
 
         <!--
             Primary launcher on Fire TV / Android TV home screen.
-            Opens straight into the full-screen WebView screensaver.
-            Press Back or Menu to reach settings.
+            Home screen with Back / Show / Config buttons.
         -->
         <activity
-            android:name=".ScreensaverActivity"
+            android:name=".MainActivity"
             android:exported="true"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.AndroidTvSS.Fullscreen">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Settings activity — reachable from within ScreensaverActivity -->
+        <!--
+            Full-screen WebView screensaver — launched by "Show" on the home screen
+            or by IdleMonitorService. Back returns to the home screen; Menu opens settings.
+            Exported so it can be started via `adb shell am start`.
+        -->
+        <activity
+            android:name=".ScreensaverActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.UATV.Fullscreen" />
+
+        <!-- Settings activity — reachable from "Config" on the home screen -->
         <activity
             android:name=".SettingsActivity"
             android:exported="true"
@@ -60,7 +71,7 @@
             android:name=".TestUrlActivity"
             android:exported="false"
             android:label="@string/test_url"
-            android:theme="@style/Theme.AndroidTvSS.Fullscreen" />
+            android:theme="@style/Theme.UATV.Fullscreen" />
 
         <!-- Boot receiver — starts IdleMonitorService after device reboot -->
         <receiver

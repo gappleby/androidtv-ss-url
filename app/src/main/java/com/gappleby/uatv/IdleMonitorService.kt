@@ -1,10 +1,11 @@
-package com.gappleby.androidtvss
+package com.gappleby.uatv
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -95,7 +96,7 @@ class IdleMonitorService : Service() {
         ) return
 
         try {
-            val component = "$packageName/.ScreensaverDreamService"
+            val component = ComponentName(this, ScreensaverDreamService::class.java).flattenToString()
             Settings.Secure.putString(contentResolver, "screensaver_components", component)
             Settings.Secure.putInt(contentResolver, "screensaver_enabled", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_sleep", 1)

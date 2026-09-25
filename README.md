@@ -1,4 +1,4 @@
-# TV Screensaver
+# URL as TV Screensaver
 
 A full-screen WebView screensaver for **Android TV** and **Amazon Fire TV / Fire Stick**.  
 Configure a URL, a sleep timer, and a screen-idle timeout — the app handles the rest, including working around Amazon's locked-down screensaver system.
@@ -27,7 +27,7 @@ On standard Android TV the system honours the [`DreamService`](https://developer
 The app registers `ScreensaverDreamService` as a dream service, which the system screensaver picker can select.
 
 ```
-Settings → Device Preferences → Screen saver → TV Screensaver
+Settings → Device Preferences → Screen saver → URL as TV Screensaver
 ```
 
 When the device idles for the configured timeout, the system automatically starts the `DreamService`, which opens a full-screen `WebView` with JavaScript enabled and all dialogs suppressed.  After the configured **sleep duration** the service calls `finish()`, allowing the device to sleep normally.
@@ -42,12 +42,18 @@ Amazon has replaced the standard Android screensaver system with their own propr
 
 The app addresses this with three layers.
 
-#### Layer 1 — Direct launch from the home screen
+#### Layer 1 — Launch from the home screen
 
-The app tile on the Fire TV home screen launches `ScreensaverActivity` directly — a full-screen `WebView` activity that behaves identically to the `DreamService` screensaver.  This is the simplest way to start the screensaver on demand.
+The app tile on the Fire TV home screen opens a simple home screen with three buttons:
 
-- Press the app tile → screensaver starts immediately
-- Press **Back** or **Menu** on the remote → returns to the settings screen
+- **Back** (focused by default) — exits the app
+- **Show** — starts `ScreensaverActivity`, a full-screen `WebView` activity that behaves identically to the `DreamService` screensaver
+- **Config** — opens the settings screen (URL, durations, permissions, test preview)
+
+While the show is playing:
+
+- Press **Back** on the remote → returns to the home screen
+- Press **Menu** on the remote → opens the settings screen
 - The sleep timer still operates: after the configured duration `FLAG_KEEP_SCREEN_ON` is cleared and the activity finishes, letting the device sleep
 
 #### Layer 2 — Override the system screensaver via secure settings (one-time ADB setup)
@@ -58,13 +64,13 @@ Android's `screensaver_components` secure setting controls which `DreamService` 
 
 ```bash
 adb connect <fire-stick-ip>:5555
-adb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant com.gappleby.uatv android.permission.WRITE_SECURE_SETTINGS
 ```
 
 Then open the app on the Fire Stick and press **"Set as System Screensaver"**.  The app writes:
 
 ```
-screensaver_components  →  com.gappleby.androidtvss/.ScreensaverDreamService
+screensaver_components  →  com.gappleby.uatv/.ScreensaverDreamService
 screensaver_enabled     →  1
 screensaver_activate_on_sleep → 1
 screensaver_activate_on_dock  → 1
@@ -114,7 +120,7 @@ adb connect 10.0.0.67:5555
 adb install -r app-release.apk
 
 # Launch settings
-adb shell am start -n com.gappleby.androidtvss/.SettingsActivity
+adb shell am start -n com.gappleby.uatv/.SettingsActivity
 ```
 
 ### Configure
@@ -132,7 +138,7 @@ Press **Test URL** to preview the page full-screen before saving.
 ### Fire TV — one-time ADB permission grant
 
 ```bash
-adb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS
+adb shell pm grant com.gappleby.uatv android.permission.WRITE_SECURE_SETTINGS
 ```
 
 Then press **"Set as System Screensaver"** in the app.  The ADB command survives reboots but must be re-run if the APK is uninstalled and reinstalled.
@@ -140,7 +146,7 @@ Then press **"Set as System Screensaver"** in the app.  The ADB command survives
 ### Standard Android TV — select the screensaver
 
 ```
-Settings → Device Preferences → Screen saver → TV Screensaver
+Settings → Device Preferences → Screen saver → URL as TV Screensaver
 ```
 
 ---
@@ -153,6 +159,7 @@ Settings → Device Preferences → Screen saver → TV Screensaver
 | `WRITE_SETTINGS` | Write `SCREEN_OFF_TIMEOUT` to the system | User taps "Grant" in the app |
 | `RECEIVE_BOOT_COMPLETED` | Start `IdleMonitorService` after reboot | Automatic |
 | `FOREGROUND_SERVICE` | Keep `IdleMonitorService` alive | Automatic |
+| `FOREGROUND_SERVICE_DATA_SYNC` | Required on Android 14+ for the `dataSync` foreground service type | Automatic |
 | `WRITE_SECURE_SETTINGS` | Write `screensaver_components` and related settings | **One-time ADB command** (see above) |
 
 ---
@@ -166,7 +173,7 @@ Every push automatically builds the app via `.github/workflows/build.yml`.
 | Event | What happens |
 |---|---|
 | Push / PR to `main` or `master` | Debug APK built and uploaded as a workflow artifact (downloadable from the Actions tab, retained for 30 days) |
-| Push a tag `v*.*.*` (e.g. `v1.2.0`) | Signed release APK built, named `tv-screensaver-1.2.0.apk`, and published as a GitHub Release with auto-generated release notes |
+| Push a tag `v*.*.*` (e.g. `v1.2.0`) | Signed release APK built, named `uatv-1.2.0.apk`, and published as a GitHub Release with auto-generated release notes |
 
 ### One-time setup — signing secrets
 
@@ -212,12 +219,12 @@ The Actions workflow will build, sign, and publish the APK to GitHub Releases au
 
 **Download the APK:**
 - Releases page: https://github.com/gappleby/androidtv-ss-url/releases
-- Direct link pattern: `https://github.com/gappleby/androidtv-ss-url/releases/download/v1.0.0/tv-screensaver-1.0.0.apk`
+- Direct link pattern: `https://github.com/gappleby/androidtv-ss-url/releases/download/v1.0.0/uatv-1.0.0.apk`
 - Debug builds (every push): https://github.com/gappleby/androidtv-ss-url/actions → click the latest run → **Artifacts**
 
 Sideload with:
 ```bash
-adb install -r tv-screensaver-1.0.0.apk
+adb install -r uatv-1.0.0.apk
 ```
 
 ---
@@ -236,7 +243,7 @@ cd androidtv-ss-url
 # Build and deploy in one step
 ./gradlew assembleDebug && \
   adb install -r app/build/outputs/apk/debug/app-debug.apk && \
-  adb shell am start -n com.gappleby.androidtvss/.ScreensaverActivity
+  adb shell am start -n com.gappleby.uatv.debug/com.gappleby.uatv.ScreensaverActivity
 ```
 
 **Windows:**
@@ -250,14 +257,16 @@ $env:JAVA_HOME = "C:\Program Files\Android\openjdk\jdk-21.0.8"
 ## Architecture
 
 ```
-com.gappleby.androidtvss
+com.gappleby.uatv
 │
 ├── ScreensaverDreamService   Android TV DreamService — activated by the system
 │                             screensaver picker; full-screen WebView with sleep timer
 │
+├── MainActivity              Launcher home screen: Back / Show / Config buttons
+│
 ├── ScreensaverActivity       Full-screen WebView activity — the Fire TV equivalent;
-│                             launched from the home tile or from SettingsActivity;
-│                             Back/Menu opens settings
+│                             launched by "Show", SettingsActivity or IdleMonitorService;
+│                             Back returns home, Menu opens settings
 │
 ├── SettingsActivity          Configuration UI: URL, durations, permissions,
 │                             "Set as System Screensaver" button

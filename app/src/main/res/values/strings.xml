@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TV Screensaver</string>
-    <string name="settings_title">TV Screensaver Settings</string>
+    <string name="app_name">URL as TV Screensaver</string>
+    <string name="settings_title">URL as TV Screensaver Settings</string>
     <string name="test_url">Test URL Preview</string>
     <string name="btn_launch_screensaver">Launch Screensaver</string>
+
+    <!-- Home screen -->
+    <string name="home_tagline">Your screen. Your view.</string>
+    <string name="btn_home_back">Back</string>
+    <string name="btn_home_show">Show</string>
+    <string name="btn_home_config">Config</string>
+    <string name="home_hint">Press BACK during the show to return here</string>
 
     <!-- Labels -->
     <string name="label_url">Screensaver URL</string>
@@ -37,7 +44,7 @@
     <!-- System screensaver component -->
     <string name="label_system_screensaver">System screensaver (Android TV / Fire TV)</string>
     <string name="btn_set_system_screensaver">Set as System Screensaver</string>
-    <string name="desc_adb_hint">Requires a one-time ADB command (run from your PC):\nadb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS\nThen press the button above.</string>
+    <string name="desc_adb_hint">Requires a one-time ADB command (run from your PC):\nadb shell pm grant com.gappleby.uatv android.permission.WRITE_SECURE_SETTINGS\nThen press the button above.</string>
     <string name="status_system_screensaver_set">Done — this app is now the system screensaver.</string>
     <string name="error_secure_settings_permission">WRITE_SECURE_SETTINGS not granted. Run the ADB command shown below first.</string>
     <string name="error_secure_settings_failed">Failed to apply: %s</string>

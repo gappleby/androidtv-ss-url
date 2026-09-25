@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           # SHA suffix makes each artifact uniquely addressable.
-          name: tv-screensaver-debug-${{ github.sha }}
+          name: uatv-debug-${{ github.sha }}
           path: app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
 
@@ -79,8 +79,8 @@ jobs:
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           mv app/build/outputs/apk/release/app-release.apk \
-             app/build/outputs/apk/release/tv-screensaver-${VERSION}.apk
-          echo "APK_PATH=app/build/outputs/apk/release/tv-screensaver-${VERSION}.apk" \
+             app/build/outputs/apk/release/uatv-${VERSION}.apk
+          echo "APK_PATH=app/build/outputs/apk/release/uatv-${VERSION}.apk" \
             >> "$GITHUB_ENV"
 
       - name: Create GitHub Release

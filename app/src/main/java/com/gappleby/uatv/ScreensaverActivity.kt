@@ -1,4 +1,4 @@
-package com.gappleby.androidtvss
+package com.gappleby.uatv
 
 import android.content.Intent
 import android.os.Build
@@ -103,19 +103,17 @@ class ScreensaverActivity : AppCompatActivity() {
         }.also { handler.postDelayed(it, minutes * 60_000L) }
     }
 
-    // Menu / Options button on Fire TV remote → open settings
-    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        return when (keyCode) {
-            KeyEvent.KEYCODE_MENU, KeyEvent.KEYCODE_SETTINGS -> {
-                openSettings()
-                true
-            }
-            KeyEvent.KEYCODE_BACK -> {
-                openSettings()
-                true
-            }
-            else -> super.onKeyDown(keyCode, event)
+    // Handled here rather than in onKeyDown so the focused WebView can't swallow them.
+    // Back → return to the home screen (or whatever launched us); Menu → open settings.
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val action: (() -> Unit)? = when (event.keyCode) {
+            KeyEvent.KEYCODE_BACK -> ::finish
+            KeyEvent.KEYCODE_MENU, KeyEvent.KEYCODE_SETTINGS -> ::openSettings
+            else -> null
         }
+        if (action == null) return super.dispatchKeyEvent(event)
+        if (event.action == KeyEvent.ACTION_UP && !event.isCanceled) action()
+        return true
     }
 
     private fun openSettings() {

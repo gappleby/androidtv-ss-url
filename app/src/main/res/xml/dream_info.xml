@@ -4,4 +4,4 @@
     Tells the system screensaver chooser which activity opens our settings.
 -->
 <dream xmlns:android="http://schemas.android.com/apk/res/android"
-    android:settingsActivity="com.gappleby.androidtvss/.SettingsActivity" />
+    android:settingsActivity="com.gappleby.uatv/.SettingsActivity" />

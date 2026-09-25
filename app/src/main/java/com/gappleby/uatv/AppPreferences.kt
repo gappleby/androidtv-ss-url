@@ -1,4 +1,4 @@
-package com.gappleby.androidtvss
+package com.gappleby.uatv
 
 import android.content.Context
 import android.content.SharedPreferences

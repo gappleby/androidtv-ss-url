@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.AndroidTvSS" parent="Theme.AppCompat.NoActionBar">
+    <style name="Theme.UATV" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
         <item name="android:colorPrimary">@color/accent</item>
         <item name="android:colorPrimaryDark">@color/accent_dark</item>
@@ -13,10 +13,30 @@
     </style>
 
     <!-- Used by TestUrlActivity — pure black, nothing but the WebView -->
-    <style name="Theme.AndroidTvSS.Fullscreen" parent="Theme.AndroidTvSS">
+    <style name="Theme.UATV.Fullscreen" parent="Theme.UATV">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
+    <!-- Large icon-over-label tile used on the home screen (MainActivity) -->
+    <style name="HomeTile" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">168dp</item>
+        <item name="android:layout_height">132dp</item>
+        <item name="android:layout_marginStart">14dp</item>
+        <item name="android:layout_marginEnd">14dp</item>
+        <item name="android:background">@drawable/bg_home_tile</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="drawableTint">@color/home_tile_content</item>
+        <item name="android:textColor">@color/home_tile_content</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.04</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:focusable">true</item>
     </style>
 
 </resources>
