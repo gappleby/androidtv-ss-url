@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Transparent-background version of ic_launcher for use on the home screen -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- TV outline; screen cut-out wound counter-clockwise so it stays transparent -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M26,26 L26,72 L82,72 L82,26 Z M20,26 Q20,20 26,20 L82,20 Q88,20 88,26 L88,72 Q88,78 82,78 L62,78 L62,84 L68,84 Q70,84 70,86 L70,88 Q70,90 68,90 L40,90 Q38,90 38,88 L38,86 Q38,84 40,84 L46,84 L46,78 L26,78 Q20,78 20,72 Z" />
+    <!-- Play triangle -->
+    <path
+        android:fillColor="#4FC3F7"
+        android:pathData="M42,38 L72,49 L42,60 Z" />
+</vector>

@@ -12,4 +12,6 @@
     <color name="input_background">#1E1E38</color>
     <color name="input_border">#3A3A5A</color>
     <color name="input_border_focused">#4FC3F7</color>
+    <color name="home_tile">#CC1A1A2E</color>
+    <color name="home_glow">#334FC3F7</color>
 </resources>

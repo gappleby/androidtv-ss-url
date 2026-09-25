@@ -1,5 +1,6 @@
-package com.gappleby.androidtvss
+package com.gappleby.uatv
 
+import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -121,7 +122,7 @@ class SettingsActivity : AppCompatActivity() {
      * Writes the four secure settings that make the system use our DreamService
      * as the screensaver — the same approach used by apps like Aerial Views.
      * Requires WRITE_SECURE_SETTINGS, which must be granted once via ADB:
-     *   adb shell pm grant com.gappleby.androidtvss android.permission.WRITE_SECURE_SETTINGS
+     *   adb shell pm grant com.gappleby.uatv android.permission.WRITE_SECURE_SETTINGS
      */
     private fun applySystemScreensaverComponent() {
         if (!hasWriteSecureSettings()) {
@@ -130,7 +131,7 @@ class SettingsActivity : AppCompatActivity() {
             return
         }
         try {
-            val component = "$packageName/.ScreensaverDreamService"
+            val component = ComponentName(this, ScreensaverDreamService::class.java).flattenToString()
             Settings.Secure.putString(contentResolver, "screensaver_components", component)
             Settings.Secure.putInt(contentResolver, "screensaver_enabled", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_sleep", 1)

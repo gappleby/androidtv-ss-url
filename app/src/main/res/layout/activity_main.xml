@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_home"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clipChildren="false"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:letterSpacing="0.02"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="40sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:letterSpacing="0.15"
+            android:text="@string/home_tagline"
+            android:textAllCaps="true"
+            android:textColor="@color/text_secondary"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="56dp"
+            android:layout_height="3dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="28dp"
+            android:background="@color/accent" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_back"
+                style="@style/HomeTile"
+                android:drawableTop="@drawable/ic_home_back"
+                android:nextFocusLeft="@id/btn_back"
+                android:text="@string/btn_home_back">
+
+                <requestFocus />
+            </Button>
+
+            <Button
+                android:id="@+id/btn_show"
+                style="@style/HomeTile"
+                android:drawableTop="@drawable/ic_home_show"
+                android:text="@string/btn_home_show" />
+
+            <Button
+                android:id="@+id/btn_config"
+                style="@style/HomeTile"
+                android:drawableTop="@drawable/ic_home_config"
+                android:nextFocusRight="@id/btn_config"
+                android:text="@string/btn_home_config" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/home_hint"
+            android:textColor="@color/text_hint"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

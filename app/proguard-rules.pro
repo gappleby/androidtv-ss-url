@@ -1,1 +1,1 @@
--keep class com.gappleby.androidtvss.** { *; }
+-keep class com.gappleby.uatv.** { *; }
