@@ -36,7 +36,7 @@ Key cross-file points:
 
 - **WebView config is duplicated** in `ScreensaverActivity`, `ScreensaverDreamService`, and `TestUrlActivity` (JS on, DOM storage, desktop UA by stripping `"Mobile"`, all JS dialogs cancelled, popups/permissions/geolocation denied). Changes to WebView behaviour must be applied to all three.
 - **Secure-settings write logic is duplicated** in `SettingsActivity.applySystemScreensaverComponent()` and `IdleMonitorService.reapplyScreensaverComponent()`; keep them in sync. Both build the component via `ComponentName(this, ScreensaverDreamService::class.java).flattenToString()` — don't use the `"$packageName/.Class"` shorthand, which breaks under the `.debug` applicationId suffix.
-- **Sleep timer**: after the configured duration (0 = indefinite), the screensaver clears `FLAG_KEEP_SCREEN_ON` / calls `finish()` so the device can sleep.
+- **Sleep timer**: after the configured duration (0 = indefinite), the screensaver clears `FLAG_KEEP_SCREEN_ON` / calls `finish()` so the device can sleep. Fire OS's own `Settings.Secure` `sleep_timeout` (default ~20 min) overrides `FLAG_KEEP_SCREEN_ON`, so the secure-settings writers also set it to `AppPreferences.deviceSleepTimeoutMs` (idle timeout + sleep duration + 2 min margin).
 - **Screen idle timeout** is written by `SettingsActivity` to `Settings.System.SCREEN_OFF_TIMEOUT`, which requires the user-granted `WRITE_SETTINGS` permission.
 - `AppPreferences` wraps SharedPreferences `screensaver_prefs` (URL, sleep duration minutes, screen timeout minutes) and is the only shared state between components.
 - `android:usesCleartextTraffic="true"` is set so `http://` URLs load.

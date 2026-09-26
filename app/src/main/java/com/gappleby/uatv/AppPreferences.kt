@@ -30,7 +30,18 @@ class AppPreferences(context: Context) {
         get() = prefs.getInt(KEY_SCREEN_TIMEOUT, DEFAULT_SCREEN_TIMEOUT)
         set(value) = prefs.edit().putInt(KEY_SCREEN_TIMEOUT, value).apply()
 
+    /**
+     * Value for Fire OS's Settings.Secure "sleep_timeout" (ms of no input before
+     * the device sleeps).  Amazon's default (~20 min) overrides FLAG_KEEP_SCREEN_ON,
+     * so it must outlast idle timeout + screensaver duration for our own sleep
+     * timer to be the one that ends the screensaver.
+     */
+    val deviceSleepTimeoutMs: Int
+        get() = (screenTimeoutMinutes + sleepDurationMinutes + SLEEP_TIMEOUT_MARGIN_MINUTES) * 60_000
+
     companion object {
+        const val KEY_DEVICE_SLEEP_TIMEOUT = "sleep_timeout"
+        private const val SLEEP_TIMEOUT_MARGIN_MINUTES = 2
         const val PREFS_NAME = "screensaver_prefs"
         const val KEY_URL = "url"
         const val KEY_SLEEP_DURATION = "sleep_duration_minutes"

@@ -101,6 +101,10 @@ class IdleMonitorService : Service() {
             Settings.Secure.putInt(contentResolver, "screensaver_enabled", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_sleep", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_dock", 1)
+            Settings.Secure.putInt(
+                contentResolver, AppPreferences.KEY_DEVICE_SLEEP_TIMEOUT,
+                AppPreferences(this).deviceSleepTimeoutMs
+            )
         } catch (_: Exception) {}
     }
 

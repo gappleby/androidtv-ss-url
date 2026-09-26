@@ -101,6 +101,16 @@ class SettingsActivity : AppCompatActivity() {
         prefs.sleepDurationMinutes = sleepMinutes
         prefs.screenTimeoutMinutes = timeoutMinutes
 
+        // Keep Fire OS's sleep_timeout in step with the new durations
+        if (hasWriteSecureSettings()) {
+            try {
+                Settings.Secure.putInt(
+                    contentResolver, AppPreferences.KEY_DEVICE_SLEEP_TIMEOUT,
+                    prefs.deviceSleepTimeoutMs
+                )
+            } catch (_: Exception) {}
+        }
+
         applySystemScreenTimeout(timeoutMinutes)
     }
 
@@ -136,6 +146,10 @@ class SettingsActivity : AppCompatActivity() {
             Settings.Secure.putInt(contentResolver, "screensaver_enabled", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_sleep", 1)
             Settings.Secure.putInt(contentResolver, "screensaver_activate_on_dock", 1)
+            Settings.Secure.putInt(
+                contentResolver, AppPreferences.KEY_DEVICE_SLEEP_TIMEOUT,
+                prefs.deviceSleepTimeoutMs
+            )
             textAdbHint.visibility = View.GONE
             showStatus(getString(R.string.status_system_screensaver_set))
         } catch (e: Exception) {
